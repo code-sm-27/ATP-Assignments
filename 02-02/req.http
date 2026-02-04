@@ -1,0 +1,58 @@
+GET http://127.0.0.1:4000/userApi/users
+
+###
+GET http://127.0.0.1:4000/userApi/users/697dc4f862f198ae5a08a456
+###
+POST  http://127.0.0.1:4000/userApi/users
+Content-Type: application/json
+
+{
+  "username": "sm1234",
+  "password": "sm1234",
+  "age": 20
+}
+
+###update user
+PUT http://127.0.0.1:4000/userApi/users/697dc7340be89830a0351281
+Content-Type: application/json
+
+{
+  "username": "sm2712",
+  "password": "sm1234",
+  "age": 20
+}
+###delete user
+DELETE http://127.0.0.1:4000/userApi/users/697dc7340be89830a0351281
+### Create a Product
+POST  http://127.0.0.1:4000/prodApi/products
+Content-Type: application/json
+
+{
+  "productName": "iPhone 17 Pro Max",
+  "price": 120000,
+  "brand": "Apple"
+}
+### Retrieving list of Products
+GET  http://127.0.0.1:4000/prodApi/products
+
+### Retrieving a Product using ProdID
+GET  http://127.0.0.1:4000/prodApi/products/102
+### Update a Product using ProdID
+PUT http://127.0.0.1:4000/prodApi/products/102
+Content-Type: application/json
+
+{
+  "productName": 102,
+  "productName": "Mobile",
+  "price": 20
+}
+###
+POST http://127.0.0.1:4000/userApi/users
+Content-Type: application/json
+
+{
+  "name": "Sm1234",
+  "email": "sm@email.com",
+  "password": "sm123456" ,
+  "cart": []
+}

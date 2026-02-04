@@ -1,0 +1,27 @@
+### Get all products
+GET http://localhost:3000/products
+
+### Create a new product
+POST http://localhost:3000/products
+Content-Type: application/json
+
+{
+    "productId": 27,
+    "name": "Smartphone",
+    "price": 20000,
+    "brand": "Samsung"
+}
+
+### Update a user (Note: The server code for this is currently just a placeholder)
+PUT http://localhost:3000/products/<id>
+Content-Type: application/json
+
+{
+    "productId":27,
+    "name": "Updated Name",
+    "price": 15000,
+    "brand": "Apple"
+}
+
+### Delete a user (Note: The server code for this is currently just a placeholder)
+DELETE http://localhost:3000/products
