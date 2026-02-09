@@ -1,0 +1,66 @@
+### User Register
+
+POST http://localhost:4000/user-api/users
+Content-Type: application/json
+
+{
+    "firstName": "Shiva",
+    "lastName": "Mani",
+    "email": "sm@email.com",
+    "password": "123456",
+    "profileImageUrl": "https://example.com/avatars/user.png"
+}
+### User Authenticate
+POST http://localhost:4000/user-api/authenticate
+Content-Type: application/json
+
+{
+    "email":"sm@email.com",
+    "password":"123456",
+    "role":"USER"
+}
+### Author Register
+POST http://localhost:4000/author-api/users
+Content-Type: application/json
+
+{
+    "firstName": "Shiva",
+    "lastName": "Mani",
+    "email": "sm2712@email.com",
+    "password": "123456",
+    "profileImageUrl": "https://example.com/avatars/user.png"
+}
+### Author Authenticate
+POST http://localhost:4000/author-api/authenticate
+Content-Type: application/json
+
+{
+    "email":"sm2712@email.com",
+    "password":"123456",
+    "role":"AUTHOR"
+}
+### Create an Article
+POST http://localhost:4000/author-api/articles
+Content-Type: application/json
+
+{
+    "author":"698973deefc92e4384013bce",
+    "title":"Programming in Python",
+    "category":"Data Science",
+    "content":"Python is one of the primary languages to perform Data Science Applications"
+}
+### Read Articles by a Author
+GET http://localhost:4000/author-api/articles/698973deefc92e4384013bce
+### Update the Article by Author
+PUT http://localhost:4000/author-api/articles
+Content-Type: application/json
+
+{
+    "author":"698973deefc92e4384013bce",
+    "articleId": "69897d00a644d776839039aa",
+    "title":"Programming in Python 2",
+    "category":"Data Science",
+    "content":"Python is one of the primary languages to perform Data Science Applications"
+}
+### Delete an Article
+DELETE http://localhost:4000/author-api/author/698973deefc92e4384013bce/article/69897d00a644d776839039aa

@@ -16,3 +16,11 @@
 7. Add Middlewares (Body Parser & Error Handling)
 
 8. Design Schemas and Create Models
+
+9. Design REST APIs for all Resources
+
+### Registration & Login
+
+10. Registration and Login in common for USER & AUTHOR. Create a separate service to reuse
+
+11. The 
