@@ -3,6 +3,7 @@ import { UserTypeModel } from '../Models/UserModel.js'
 import { ArticleModel } from '../Models/ArticleModel.js'
 import { register, authenticate } from '../Services/AuthService.js'
 import { checkAuthor } from '../Middlewares/checkAuthor.js'
+import { verifyToken } from '../Middlewares/verifyToken.js'
 
 export const authorRoute = exp.Router()
 
@@ -16,24 +17,9 @@ authorRoute.post('/users',async (req,res) => {
     res.status(201).json({ message: "Author Created", payload: newUserObj})
     
 })
-//Authenticate User
-authorRoute.post('/authenticate',async (req,res) => {
-    //Get User Credentials Object
-    let userCred = req.body
-    //Call Authentication Service
-    let {token, user} = await authenticate(userCred)
-    //Save Token in HTTP Only Cookie
-    res.cookie("token",token,{
-        httpOnly:true,
-        sameSite:"lax",
-        secure:false
-    })
-    //Send Response
-    res.status(200).json({message:"Login Success",payload: user})
-    
-})
-//Create Article
-authorRoute.post('/articles', checkAuthor, async (req,res) => {
+
+//Create Article (Protected Route)
+authorRoute.post('/articles', verifyToken, checkAuthor, async (req,res) => {
     //Get Article from Request
     let articleDoc = req.body
     //Create Article Document
@@ -45,16 +31,16 @@ authorRoute.post('/articles', checkAuthor, async (req,res) => {
 
     
 })
-//Read Articles of Author
-authorRoute.get("/articles/:authorId", checkAuthor, async (req,res) => {
+//Read Articles of Author (Protected Route)
+authorRoute.get("/articles/:authorId",verifyToken, checkAuthor, async (req,res) => {
     //Read Articles by this Author
     let aid = req.params.authorId
     let articles = await ArticleModel.find({author: aid, isArticleActive: true}).populate("author","firstName email")
     //Send Response
     res.status(201).json({message:"List of Articles are:-", payload:articles})
 })
-//Edit Article
-authorRoute.put("/articles",checkAuthor, async (req,res) => {
+//Edit Article (Protected Route)
+authorRoute.put("/articles",verifyToken, checkAuthor, async (req,res) => {
     // Get the updated article
     let {author,articleId,title,category,content} = req.body
     // Find the Article
@@ -71,8 +57,8 @@ authorRoute.put("/articles",checkAuthor, async (req,res) => {
 
     
 })
-//Delete (Soft Delete) Article
-authorRoute.delete('/author/:authorId/article/:articleId', checkAuthor, async (req,res) => {
+//Delete (Soft Delete) Article (Protected Route)
+authorRoute.delete('/author/:authorId/article/:articleId',verifyToken , checkAuthor, async (req,res) => {
     // Get Author Id and Article Id to validate the required article
     let autId = req.params.authorId
     let artId = req.params.articleId

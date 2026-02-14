@@ -10,15 +10,6 @@ Content-Type: application/json
     "password": "123456",
     "profileImageUrl": "https://example.com/avatars/user.png"
 }
-### User Authenticate
-POST http://localhost:4000/user-api/authenticate
-Content-Type: application/json
-
-{
-    "email":"sm@email.com",
-    "password":"123456",
-    "role":"USER"
-}
 ### Author Register
 POST http://localhost:4000/author-api/users
 Content-Type: application/json
@@ -30,15 +21,7 @@ Content-Type: application/json
     "password": "123456",
     "profileImageUrl": "https://example.com/avatars/user.png"
 }
-### Author Authenticate
-POST http://localhost:4000/author-api/authenticate
-Content-Type: application/json
 
-{
-    "email":"sm2712@email.com",
-    "password":"123456",
-    "role":"AUTHOR"
-}
 ### Create an Article
 POST http://localhost:4000/author-api/articles
 Content-Type: application/json
@@ -64,3 +47,73 @@ Content-Type: application/json
 }
 ### Delete an Article
 DELETE http://localhost:4000/author-api/author/698973deefc92e4384013bce/article/69897d00a644d776839039aa
+
+### Reading Articles by User
+GET http://localhost:4000/user-api/articles
+### Post Comments by User
+POST http://localhost:4000/user-api/articles
+Content-Type: application/json
+
+{
+    "articleId":"6989ac3602f916a38ae61e0e",
+    "user":"698969e9ad6530ed6ebf806f",
+    "comment":"It is Good"
+}
+### Login any user 
+POST http://localhost:4000/common-api/login
+Content-Type: application/json
+
+{
+    "email":"sm@email.com",
+    "password":"123456"
+}
+### Logout any User
+GET http://localhost:4000/common-api/logout
+### Handling Invalid Paths
+GET http://localhost:4000/hello
+
+### Login Admin
+POST http://localhost:4000/common-api/login
+Content-Type: application/json
+
+{
+    "email":"admin@mail.com",
+    "password":"admin"
+}
+
+### Blocking an User
+PUT http://localhost:4000/admin-api/block
+Content-Type: application/json
+
+{
+    "email":"sm@email.com"
+}
+
+### Unblocking an User
+PUT http://localhost:4000/admin-api/unblock
+Content-Type: application/json
+
+{
+    "email":"sm@email.com"
+}
+
+### Reading all Articles by Admin
+GET http://localhost:4000/admin-api/articles
+
+### Change Password
+PUT http://localhost:4000/common-api/change-password
+Content-Type: application/json
+
+{
+    "email":"sm2712@email.com",
+    "currentPassword":"12345678",
+    "newPassword":"123456789"
+}
+### Login after changing the password
+POST http://localhost:4000/common-api/login
+Content-Type: application/json
+
+{
+    "email":"sm2712@email.com",
+    "password":"123456789"
+}
