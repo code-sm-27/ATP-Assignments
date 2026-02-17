@@ -1,0 +1,73 @@
+/* Media Queries */
+body
+{
+    color: black;
+}
+.image
+{
+    width: 150px;
+    height: 150px;
+}
+.image2
+{
+    width: 150px;
+    height: 150px;
+}
+@media print {
+    body
+    {
+        background-color: white;
+        color: black;
+    }
+    img
+    {
+        display: none;
+    }
+    
+}
+/* @media screen and (orientation: landscape)  {
+    body{
+        background-color: black;
+    }
+}
+@media screen and (orientation: portrait)  {
+    body{
+        background-color: darkcyan;
+    }
+} */
+@media screen and (max-width:500px){
+    body
+    {
+        background-color: aqua;
+    }
+    .image
+    {
+        display: none;
+    }
+    
+}
+@media screen and (min-width:500px) and (max-width:700px){
+    body
+    {
+        background-color: aqua;
+    }
+    .image
+    {
+        display: none;
+    }
+    .image2
+    {
+        display: none;
+    }
+}
+
+@media screen and (min-width:700px) {
+    body
+    {
+        background-color: blanchedalmond
+    }
+    
+    .image2{
+        display: none;
+    }
+}

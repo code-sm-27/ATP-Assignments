@@ -1,0 +1,41 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.top
+{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    
+}
+.top h1
+{
+    font-size: 2.7em;
+    text-align: center;
+    position: absolute;
+    align-self: center;
+    color: white;
+    padding-left: 30vw;
+    padding-right: 30vw;
+}
+.top img
+{
+    width: 1200px;
+    height: 600px;
+}
+.top button
+{
+    font-size: 10px;
+    position: fixed;
+    border-radius: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 40px;
+    padding-right: 40px;
+    color: white;
+    background-color: coral;
+}

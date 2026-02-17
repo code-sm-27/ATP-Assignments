@@ -1,0 +1,42 @@
+/* Relative - Stays in the Normal Flow */
+/* Absolute - Completely removed from the flow, other elements occupy its space */
+/* Fixed -  Removed from Normal Document Flow, Positioned to relative viewport of the page*/
+/* Static - Default value for all elements */
+/* Sticky -  */
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.parent
+{
+    width: 500px;
+    height: 400px;
+    margin: auto;
+    margin-top: 150px;
+    border: 2px solid black;
+    position: relative;
+}
+.child
+{
+    height: 100px;
+    width: 100px;
+}
+.child1
+{
+    position: absolute;
+    background-color: red;
+    left: 20px;
+}
+.child2
+{
+    background-color: green;
+
+}
+.child3
+{
+    background-color: blue;
+    position:sticky;
+    
+}
