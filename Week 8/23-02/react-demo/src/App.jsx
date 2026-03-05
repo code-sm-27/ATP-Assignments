@@ -1,10 +1,7 @@
 import StateDemo from './components/StateDemo';
 import './App.css'
-import FormDemo from './components/FormDemo';
-import FormAssignment from './components/FormAssignment';
-
-import TaskManager from './components/TaskManager';
-import SideEffects from './components/SideEffects';
+import Test1 from './components/Test1'
+import Test2 from './components/Test2'
 
 
 // function App(){
@@ -47,6 +44,21 @@ import SideEffects from './components/SideEffects';
 //       <button onClick={test1} className='bg-black text-blue-200 rounded p-1'>Click</button><br /><br />
 //       <button onClick={()=>test2(100)} className='bg-black text-blue-200 rounded p-1'>Click</button>
 //     </div>
+  // const messages =[
+  //   {
+  //     message1: "Good Morning",
+  //     message2: "Hello"
+  //   },
+  //   {
+  //     message1: "Good Afternoon",
+  //     message2: "Hello"
+  //   },
+  //   {
+  //     message1: "Good Evening",
+  //     message2: "Hello"
+  //   },
+  // ]
+
 //   )
 
 // }
@@ -55,11 +67,9 @@ function App()
 {
   return(
     <div className='text-center border-2 mt-2 p-10 bg-amber-100' >
-      {/* <StateDemo/> */}
-      {/* <FormDemo/> */}
-      {/* <FormAssignment/> */}
-      {/* <TaskManager/ > */}
-      <SideEffects/>
+      <StateDemo/>
+      {/* <Test1 />
+      <Test2 /> */}
     </div>
   )
 }
