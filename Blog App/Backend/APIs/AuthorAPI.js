@@ -19,11 +19,12 @@ authorRoute.post('/users',async (req,res) => {
 })
 
 //Create Article (Protected Route)
-authorRoute.post('/articles', verifyToken, checkAuthor, async (req,res) => {
+authorRoute.post('/articles', verifyToken("AUTHOR"), async (req,res) => {
     //Get Article from Request
     let articleDoc = req.body
+    articleDoc.author = req.user.userId
     //Create Article Document
-    let newArticleObj = new ArticleModel(articleDoc)
+    let newArticleObj =new ArticleModel(articleDoc)
     //Save the Article
     let createdArticleDoc = await newArticleObj.save()
     //Send the Response
@@ -32,21 +33,27 @@ authorRoute.post('/articles', verifyToken, checkAuthor, async (req,res) => {
     
 })
 //Read Articles of Author (Protected Route)
-authorRoute.get("/articles/:authorId",verifyToken, checkAuthor, async (req,res) => {
+authorRoute.get("/articles",verifyToken("AUTHOR"), async (req,res) => {
     //Read Articles by this Author
-    let aid = req.params.authorId
+    let aid = req.user.userId
     let articles = await ArticleModel.find({author: aid, isArticleActive: true}).populate("author","firstName email")
     //Send Response
     res.status(201).json({message:"List of Articles are:-", payload:articles})
 })
 //Edit Article (Protected Route)
-authorRoute.put("/articles",verifyToken, checkAuthor, async (req,res) => {
+authorRoute.put("/articles",verifyToken("AUTHOR"), async (req,res) => {
     // Get the updated article
-    let {author,articleId,title,category,content} = req.body
+    let {articleId,title,category,content} = req.body
     // Find the Article
-    let checkArticle = ArticleModel.findOne({_id: articleId,author: author})
+    let checkArticle = await ArticleModel.findById(articleId)
     if(!checkArticle){
         res.status(401).json({message:"Article is Not Found"})    
+    }
+    let author = checkArticle.author.toString()
+    if(author !== req.user.userId)
+    {
+        res.status(403).json({message: "Forbidden"})
+
     }
     // update the article
     let updatedArticle = await ArticleModel.findByIdAndUpdate(articleId,{
@@ -58,14 +65,19 @@ authorRoute.put("/articles",verifyToken, checkAuthor, async (req,res) => {
     
 })
 //Delete (Soft Delete) Article (Protected Route)
-authorRoute.delete('/author/:authorId/article/:articleId',verifyToken , checkAuthor, async (req,res) => {
+authorRoute.delete('/article/:articleId',verifyToken("AUTHOR") , async (req,res) => {
     // Get Author Id and Article Id to validate the required article
-    let autId = req.params.authorId
     let artId = req.params.articleId
     // Find the required article
-    let findArticle = ArticleModel.findOne({_id: artId, author: autId})
+    let findArticle = await ArticleModel.findById(artId)
     if(!findArticle){
         res.status(401).json({message:"Article is Not Found"})
+    }
+    let author = findArticle.author.toString()
+    if(author !== req.user.userId)
+    {
+        res.status(403).json({message: "Forbidden"})
+
     }
     // Soft Delete the Article by updating the isArticleActive attribute
     await ArticleModel.findByIdAndUpdate(artId,{$set:{isArticleActive: false}},{new:true})

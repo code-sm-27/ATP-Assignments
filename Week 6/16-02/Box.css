@@ -1,0 +1,31 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+h1
+{
+    height: 250px;
+    width: 700px;
+    text-align: center;
+    align-content: center;
+    border: 2px solid black;
+    /* Order of Values Top Right Left Bottom */
+    padding: 50px 30px 40px 40px;
+    margin: 50px;
+    
+}
+h2
+{
+    padding-bottom: 5px;
+}
+h3
+{
+    display: inline-block;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: cadetblue;
+    color: azure;
+}

@@ -6,7 +6,9 @@ config()
 
 //Register Function
 export const register = async (userObj) => {
-    //Create Document
+    // Check if already exists
+    let user = await UserTypeModel()
+    // Create Document
     const userDoc = new UserTypeModel(userObj)
     //Validation for Empty Passwords
     await userDoc.validate()
@@ -22,7 +24,7 @@ export const register = async (userObj) => {
     return newUserObj
 }
 
-//Authenticate Function
+//Login Function
 export const authenticate = async ({ email, password }) => {
     //Check user with email & role
     const user = await UserTypeModel.findOne({ email })

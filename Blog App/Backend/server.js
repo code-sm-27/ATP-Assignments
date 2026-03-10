@@ -6,10 +6,12 @@ import { authorRoute } from './APIs/AuthorAPI.js'
 import { adminRoute } from './APIs/AdminAPI.js'
 import cookieParser from 'cookie-parser'
 import { commonRoute } from './APIs/CommonAPI.js'
+import cors from 'cors'
 config() //process.env
-
+// Create Express Application
 const app = exp()
-
+// Use CORS middleware
+app.use(cors({origin:['http://localhost:5173'],credentials:true}))
 //add body parser middleware
 app.use(exp.json())
 //add cookie parser middleware
@@ -45,7 +47,7 @@ app.use((req,res,next)=>{
 
 //Error Handling Middleware
 app.use((err,req,res,next)=>{
-
-    res.json({message:"error",reason:err.message})
+    const statusCode = err.status || 500
+    res.status(statusCode).json({message:"error",reason:err.message})
     
 })
