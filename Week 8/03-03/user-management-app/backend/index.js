@@ -17,20 +17,16 @@ const app = exp()
 app.use(exp.json())
 
 app.use(cors({
-  origin:['http://localhost:5173']
+  origin: ['http://localhost:5173', 'https://user-management-app-frontend-j1p2yw4jc-code-sm-27s-projects.vercel.app/'],
 }))
-
 app.use('/user-api',userApp)
 
-const connectDB = async()=>{
-    try
-    {
-    await connect(process.env.DB_URL)
-    app.listen(process.env.PORT,()=>console.log("Server Started"))
-    }
-    catch(err)
-    {
-        console.log("Error in DB Connection",err)
+const connectDB = async () => {
+    try {
+        await connect(process.env.DB_URL)
+        console.log("DB Connected Successfully")
+    } catch(err) {
+        console.log("Error in DB Connection", err)
     }
 }
 connectDB()
@@ -58,3 +54,4 @@ app.use((err, req, res, next) => {
     message: err.message,
   });
 });
+export default app;
