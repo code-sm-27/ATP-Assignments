@@ -3,7 +3,7 @@
 // Create User
 
 import exp from 'express'
-import { UserModel } from './UserModel.js'
+import { UserModel } from '././UserModel.js'
 
 export const userApp = exp.Router()
 // Create User
