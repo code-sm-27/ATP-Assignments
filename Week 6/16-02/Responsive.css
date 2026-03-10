@@ -1,0 +1,55 @@
+/* Flex Container Properties
+    flex-direction -  
+    justify-content -
+    align-items - 
+    flex-grow - 
+    flex-shrink - 
+    flex-wrap - */
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.parent
+{
+    max-width: 500px;
+    height: 400px;
+    margin: auto;
+    border: 2px solid black;
+    margin-top: 100px;
+    /* Flex Container */
+    display: flex;
+    /* Direction */
+    flex-direction:row-reverse;
+    /* Horizontal Alignment*/
+    justify-content: space-around;
+    /* Vertical Alignment */
+    align-items: center;
+    flex-wrap: wrap;
+    
+}
+.child
+{
+    height: 100px;
+    width: 100px;
+    text-align: center;
+    
+}
+.child1
+{
+    background-color: coral;
+    /* flex-grow: 1; */
+}
+.child2
+{
+    background-color: cornflowerblue;
+    /* flex-grow: 2; */
+
+}
+.child3
+{
+    background-color: darkcyan;
+    /* flex-shrink: 0; */
+    
+}
