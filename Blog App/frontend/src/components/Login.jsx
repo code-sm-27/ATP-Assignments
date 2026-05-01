@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router'
+import { NavLink, useNavigate } from 'react-router'
 import { useAuth } from '../store/authStore'
 import toast from 'react-hot-toast'
+import { formCard, formTitle, inputClass, labelClass, navBrandClass, navLinkActiveClass, navLinkClass, pageBackground, submitBtn } from '../styles/common'
 
 function Login() {
   const {register,handleSubmit,formState:{errors}} = useForm()
@@ -23,6 +24,8 @@ function Login() {
     
   }
     useEffect(()=>{
+      console.log(currentUser)
+    console.log(isAuthenticated)
       
       if(isAuthenticated && currentUser)
     {
@@ -47,22 +50,24 @@ function Login() {
     }
 
   return (
-    <div className='bg-gray-300 text-center min-h-screen p-20 pt-10'>
-      <h1 className='text-3xl mb-7'> Login </h1>
-      <form onSubmit={handleSubmit(submit)}>
+    <div className={pageBackground}>
+      <h1 className={formTitle}> Login </h1>
+      <form onSubmit={handleSubmit(submit)} className={formCard}>
         {error!==null && <p className='text-center text-2xl text-red-500 mb-4'>{error}</p>}
         {/* <p className='inline m-3'>Select Role</p>
         <input type="radio" {...register("role",{required:true})} value="user" /><label className='m-2'>User</label>
         <input type="radio" {...register("role",{required:true})} value="author" /><label className='m-2'>Author</label>
         <input type="radio" {...register("role",{required:true})} value="admin" /><label className='m-2'>Admin</label><br />
         {errors.role?.type === 'required' && <p className='text-red-400'>Please select a role</p>} */}
-        
-        <input type="text" {...register("email",{required:true})} placeholder='Email' className='border p-1 m-2'/><br />
+        <label className={labelClass}>Email</label>
+        <input type="text" {...register("email",{required:true})} placeholder='Email' className={inputClass}/><br /><br />
         {errors.email?.type === 'required' && <p className='text-red-400'>Email is required</p>}
-
-        <input type="password" {...register("password",{required:true})} placeholder='Password' className='border p-1 m-2'/><br />
+        <label className={labelClass}>Password</label>
+        <input type="password" {...register("password",{required:true})} placeholder='Password' className={inputClass}/><br /><br />
         {errors.password?.type === 'required' && <p className='text-red-400'>Password is required</p>}
-        <button type="submit" className='bg-blue-400 p-2 mt-2 rounded'>Login</button>
+        <NavLink className={navLinkActiveClass} >Forgot Password?</NavLink>
+        <button type="submit" className={submitBtn}>Login</button>
+        <label className={navLinkClass}>Don't have an Account? <NavLink className={navLinkActiveClass}>Create One</NavLink></label>
       </form>
     </div>
   )

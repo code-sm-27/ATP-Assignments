@@ -35,6 +35,25 @@ export const useAuth = create((set)=>({
 
         }
     },
+    checkAuth: async () => {
+        try{
+            set({loading:true,err:null})
+            let res = await axios.get("http://localhost:4000/common-api/check-auth",{withCredentials: true})
+            set({loading:false,error:null,isAuthenticated:true,currentUser:res.data.payload})
+        }
+        catch(err)
+        {
+            console.log("Error is ", err.message)
+            const backendErrorMessage = err.response?.data?.reason || err.response?.data?.message || err.message;
+            set({
+                loading: false,
+                isAuthenticated: false,
+                currentUser: null,
+                error: backendErrorMessage
+            })
+        }
+        
+    },
     logout: async()=>{
         try
         {

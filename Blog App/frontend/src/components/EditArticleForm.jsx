@@ -1,15 +1,59 @@
-import React from 'react'
-import { useForm } from 'react-hook-form'
-import { formCard, formGroup, inputClass, labelClass, pageBackground, primaryBtn, submitBtn } from '../styles/common'
+import { useForm } from "react-hook-form";
+import { useLocation, useNavigate, useParams } from "react-router";
+import { useEffect } from "react";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
-function AddArticle() {
-    const {register,handleSubmit,formState:{errors}} = useForm()
-    const submit = (obj) =>{
-        console.log(obj)
-    }
+import {
+  formCard,
+  formTitle,
+  formGroup,
+  labelClass,
+  inputClass,
+  submitBtn,
+  errorClass,
+  articlePageWrapper,
+} from "../styles/common";
+
+function EditArticle() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  const article = location.state;
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
+
+  // prefill form
+  useEffect(() => {
+    if (!article) return;
+
+     setValue("title", article.title);
+     setValue("category", article.category);
+     setValue("content", article.content);
+  }, [article]);
+
+  const updateArticle = async (data) => {
+    console.log(data);
+    data.articleId = article._id;
+    let res = await axios.put("http://localhost:4000/author-api/articles", data, { withCredentials: true });
+    console.log("res update atricle", res);
+    navigate(`/article`, {
+      state: res.data.payload,
+    });
+  };
+
   return (
-    <div className={pageBackground}>
-      <form onSubmit={handleSubmit(submit)} className={formCard}>
+    <div className={`${formCard} mt-10`}>
+      <h2 className={formTitle}>Edit Article</h2>
+
+      <form onSubmit={handleSubmit(updateArticle)}>
+        {/* Title */}
         <div className={formGroup}>
         <label className={labelClass}>Title</label>
         <input type="text" {...register("title",{required:true})} placeholder='Title' className={inputClass}/><br />
@@ -44,11 +88,10 @@ function AddArticle() {
           />
           {errors.content?.type === 'required' && <p className='text-red-400'>Content is required</p>}
           </div>
-        
-        <button type="submit" className={submitBtn}>Publish Article</button>
+        <button className={submitBtn}>Update Article</button>
       </form>
     </div>
-  )
+  );
 }
 
-export default AddArticle
+export default EditArticle;

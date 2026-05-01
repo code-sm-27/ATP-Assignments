@@ -53,3 +53,8 @@ commonRoute.get('/logout', (req,res)=>{
 
     res.status(200).json({message:"Logged Out Successfully"})
 })
+
+// Page Refresh
+commonRoute.get("/check-auth", verifyToken("USER","AUTHOR","ADMIN"),(req,res)=>{
+    res.status(200).json({message: "Authenticated",payload: req.user})
+})

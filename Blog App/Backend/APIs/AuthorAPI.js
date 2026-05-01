@@ -4,19 +4,50 @@ import { ArticleModel } from '../Models/ArticleModel.js'
 import { register, authenticate } from '../Services/AuthService.js'
 import { checkAuthor } from '../Middlewares/checkAuthor.js'
 import { verifyToken } from '../Middlewares/verifyToken.js'
-
+import upload from '../config/multer.js'
+import cloudinary from '../config/cloudinary.js'
+import { uploadToCloudinary } from '../config/cloudinaryUpload.js'
 export const authorRoute = exp.Router()
 
 //Register User
-authorRoute.post('/users',async (req,res) => {
-    //Get User Obj from req
-    let userObj = req.body
-    //Call Register
-    const newUserObj = await register({...userObj, role:"AUTHOR"})
-    //Send Response
-    res.status(201).json({ message: "Author Created", payload: newUserObj})
-    
-})
+authorRoute.post(
+        "/users",
+        upload.single("profileImageUrl"),
+        async (req, res, next) => {
+        let cloudinaryResult;
+
+            try {
+                let userObj = req.body;
+
+                //  Step 1: upload image to cloudinary from memoryStorage (if exists)
+                if (req.file) {
+                cloudinaryResult = await uploadToCloudinary(req.file.buffer);
+                }
+
+                // Step 2: call existing register()
+                const newUserObj = await register({
+                ...userObj,
+                role: "AUTHOR",
+                profileImageUrl: cloudinaryResult?.secure_url,
+                });
+
+                res.status(201).json({
+                message: "user created",
+                payload: newUserObj,
+                });
+
+            } catch (err) {
+
+                // Step 3: rollback 
+                if (cloudinaryResult?.public_id) {
+                await cloudinary.uploader.destroy(cloudinaryResult.public_id);
+                }
+
+                next(err); // send to your error middleware
+            }
+
+        }
+        );
 
 //Create Article (Protected Route)
 authorRoute.post('/articles', verifyToken("AUTHOR"), async (req,res) => {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-
+import CountryCard from './CountryCard'
 
 function CountryList() {
     let [country,setCountry] = useState([])
@@ -44,12 +44,11 @@ function CountryList() {
 
   return (
     <div>
-        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12 mt-10 text-center'>
-        {country.map((val,index)=><div key={index} className='shadow-md p-10 rounded-2xl'>
-            <p className='text-4xl'>{val.name.common}</p>
-            <p>{val.name.official}</p>
-        </div>)}
-        </div>
+        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12 mt-10 px-10'>
+        {country.map((val, index) => (
+            <CountryCard key={index} country={val} />
+        ))}
+    </div>
     </div>
     
   )

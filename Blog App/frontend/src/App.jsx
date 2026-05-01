@@ -8,7 +8,11 @@ import UserDashboard from './components/UserDashboard'
 import AuthorDashboard from './components/AuthorDashboard'
 import AdminDashboard from './components/AdminDashboard'
 import { Toaster } from 'react-hot-toast'
-import Articles from './components/Article'
+import Article from './components/Article'
+import ProtectedRoute from './components/ProtectedRoute'
+import AddArticle from './components/AddArticle'
+import Unauthorized from './components/Unauthorized'
+import AuthorArticles from './components/AuthorArticles'
 
 function App() {
   const routerObj = createBrowserRouter([
@@ -27,15 +31,22 @@ function App() {
         path:"/register",
         element:<Register/>
       }
-    ]
-    },
+    ,
     {
       path: '/userdashboard',
-      element: <UserDashboard/>
+      element: <ProtectedRoute allowedRoles={["USER"]}> <UserDashboard /> </ProtectedRoute> 
     },
     {
       path: '/authordashboard',
-      element: <AuthorDashboard />
+      element:<ProtectedRoute allowedRoles={["AUTHOR"]}><AuthorDashboard /></ProtectedRoute>,
+      children:[{
+        path: '/authordashboard/articles',
+        element: <AuthorArticles/>
+      },
+      {
+        path:'/authordashboard/addArticle',
+        element: <AddArticle/>
+      }] 
     },
     {
       path: '/admindashboard',
@@ -43,8 +54,13 @@ function App() {
     },
     {
       path:'/article',
-      element:<Articles/>
+      element:<Article/>
+    },
+    {
+      path: 'unauthorized',
+      element: <Unauthorized/>
     }
+  ]}
   ])
   return (
     <div>

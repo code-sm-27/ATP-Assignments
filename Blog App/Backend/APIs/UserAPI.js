@@ -2,19 +2,51 @@ import exp from 'express'
 import { authenticate, register } from '../Services/AuthService.js'
 import { ArticleModel } from '../Models/ArticleModel.js'
 import { verifyToken } from '../Middlewares/verifyToken.js'
-
+import { uploadToCloudinary } from '../config/cloudinaryUpload.js'
+import cloudinary from '../config/cloudinary.js'
+import upload from '../config/multer.js'
 export const userRoute = exp.Router()
 
 //Register User
-userRoute.post('/users',async (req,res) => {
-    //Get User Obj from req
-    let userObj = req.body
-    //Call Register
-    const newUserObj = await register({...userObj, role:"USER"})
-    //Send Response
-    res.status(201).json({ message: "User Created", payload: newUserObj})
-    
-})
+userRoute.post(
+        "/users",
+        upload.single("profileImageUrl"),
+        async (req, res, next) => {
+        let cloudinaryResult;
+
+            try {
+                let userObj = req.body;
+
+                //  Step 1: upload image to cloudinary from memoryStorage (if exists)
+                if (req.file) {
+                cloudinaryResult = await uploadToCloudinary(req.file.buffer);
+                }
+
+                // Step 2: call existing register()
+                const newUserObj = await register({
+                ...userObj,
+                role: "USER",
+                profileImageUrl: cloudinaryResult?.secure_url,
+                });
+
+                res.status(201).json({
+                message: "user created",
+                payload: newUserObj,
+                });
+
+            } catch (err) {
+
+                // Step 3: rollback 
+                if (cloudinaryResult?.public_id) {
+                await cloudinary.uploader.destroy(cloudinaryResult.public_id);
+                }
+
+                next(err); // send to your error middleware
+            }
+
+        }
+        );
+
 //Read all Articles
 userRoute.get('/articles',verifyToken("USER") ,async (req,res) => {
     let articles = await ArticleModel.find({isArticleActive: true})
