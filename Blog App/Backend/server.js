@@ -21,7 +21,7 @@ app.use('/user-api',userRoute)
 app.use('/author-api',authorRoute)
 app.use('/admin-api',adminRoute)
 app.use('/common-api',commonRoute)
-
+app.set("trust proxy", 1)
 // Connecting to DB
 const connectDB = async()=>{
 
