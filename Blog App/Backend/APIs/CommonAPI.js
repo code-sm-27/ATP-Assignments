@@ -16,7 +16,6 @@ commonRoute.post('/login',async (req,res) => {
         httpOnly:true,
         secure: true,
         sameSite:"none",
-        secure:false
     })
     //Send Response
     res.status(200).json({message:"Login Success",payload: user})
