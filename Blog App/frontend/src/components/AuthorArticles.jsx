@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router";
 import { useAuth } from "../store/authStore";
+import { api } from '../api/axiosConfig';
 
 import {
   articleCardClass,
@@ -32,7 +32,7 @@ function AuthorArticles() {
       setLoading(true);
 
       try {
-        const res = await axios.get(`https://atp-assignments.onrender.com/author-api/articles/`, { withCredentials: true });
+        const res = await api.get(`/author-api/articles/`);
 
         setArticles(res.data.payload);
       } catch (err) {

@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import {useNavigate} from 'react-router'
-
+import { VITE_API_URL } from env
 function Register() {
   const {register,handleSubmit,formState:{errors}} = useForm()
   let [preview, setPreview] = useState(null)
@@ -18,10 +18,10 @@ function Register() {
     let apiUrl = ""
     if(newUser.role === "USER")
     {
-      apiUrl = "https://atp-assignments.onrender.com/user-api/users"
+      apiUrl = `${import.meta.env.VITE_API_URL}/user-api/users`
     }
     else if (newUser.role === "AUTHOR"){
-      apiUrl = "https://atp-assignments.onrender.com/author-api/users"
+      apiUrl = `${import.meta.env.VITE_API_URL}/author-api/users`
     }
     console.log(newUser)
 

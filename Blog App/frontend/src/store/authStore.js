@@ -1,5 +1,5 @@
 import {create} from 'zustand'
-import axios from 'axios'
+import { api } from '../api/axiosConfig';
 
 export const useAuth = create((set)=>({
     currentUser:null,
@@ -13,7 +13,7 @@ export const useAuth = create((set)=>({
             // Set Loading State
             set({loading:true,err:null})
             // Make API Req
-            let res = await axios.post("https://atp-assignments.onrender.com/common-api/login",userObj,{withCredentials:true})
+            let res = await api.post("/common-api/login",userObj);
                     
             set({loading:false,error:null,isAuthenticated:true,currentUser:res.data.payload})
             
@@ -38,7 +38,7 @@ export const useAuth = create((set)=>({
     checkAuth: async () => {
         try{
             set({loading:true,err:null})
-            let res = await axios.get("https://atp-assignments.onrender.com/common-api/check-auth",{withCredentials: true})
+            let res = await api.get("/common-api/check-auth");
             set({loading:false,error:null,isAuthenticated:true,currentUser:res.data.payload})
         }
         catch(err)
@@ -60,7 +60,7 @@ export const useAuth = create((set)=>({
             // Set Loading State
             set({loading:true,err:null})
             // Make API Req
-            let res = await axios.get("https://atp-assignments.onrender.com/common-api/logout",{withCredentials:true})
+            let res = await api.get("/common-api/logout");
                 
             // Update State
             set({loading:false,error:null,isAuthenticated:false,currentUser:null})

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { NavLink, useLocation, useNavigate } from 'react-router'
 import { useAuth } from '../store/authStore'
 import {toast} from  'react-hot-toast'
-import axios from 'axios'
+import { api } from '../api/axiosConfig';
 import { articleBody, articleCardClass, articleExcerpt, articleGrid, articleTitle, ghostBtn, pageTitleClass, primaryBtn, submitBtn } from '../styles/common'
 
 
@@ -24,7 +24,7 @@ function UserDashboard() {
 
     try{
       setLoading(true)
-      let res = await axios.get("https://atp-assignments.onrender.com/user-api/articles",{withCredentials:true})
+      let res = await api.get("/user-api/articles")
       setArticles(res.data.payload)
     }
     catch(err)
