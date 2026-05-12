@@ -28,7 +28,7 @@ export const register = async (userObj) => {
 export const authenticate = async ({ email, password }) => {
     //Check user with email & role
     const user = await UserTypeModel.findOne({ email })
-
+    
     if(!user)
     {
         const err = new Error("User Not Found")

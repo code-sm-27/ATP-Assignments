@@ -52,8 +52,9 @@ function Login() {
   return (
     <div className={pageBackground}>
       <h1 className={formTitle}> Login </h1>
+      {error && <p className='text-center text-2xl text-red-500 mb-4'>{error}</p>}
       <form onSubmit={handleSubmit(submit)} className={formCard}>
-        {error!==null && <p className='text-center text-2xl text-red-500 mb-4'>{error}</p>}
+        
         {/* <p className='inline m-3'>Select Role</p>
         <input type="radio" {...register("role",{required:true})} value="user" /><label className='m-2'>User</label>
         <input type="radio" {...register("role",{required:true})} value="author" /><label className='m-2'>Author</label>

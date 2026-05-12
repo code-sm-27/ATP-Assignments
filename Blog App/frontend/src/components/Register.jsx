@@ -18,10 +18,10 @@ function Register() {
     let apiUrl = ""
     if(newUser.role === "USER")
     {
-      apiUrl = "http://localhost:4000/user-api/users"
+      apiUrl = "https://atp-assignments.onrender.com/user-api/users"
     }
     else if (newUser.role === "AUTHOR"){
-      apiUrl = "http://localhost:4000/author-api/users"
+      apiUrl = "https://atp-assignments.onrender.com/author-api/users"
     }
     console.log(newUser)
 

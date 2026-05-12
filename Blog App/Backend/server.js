@@ -1,5 +1,5 @@
 import exp  from 'express'
-import {connect} from 'mongoose'
+import {connect,mongoose} from 'mongoose'
 import {config} from 'dotenv'
 import { userRoute } from './APIs/UserAPI.js'
 import { authorRoute } from './APIs/AuthorAPI.js'

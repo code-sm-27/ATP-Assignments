@@ -14,7 +14,8 @@ commonRoute.post('/login',async (req,res) => {
 
     res.cookie("token",token,{
         httpOnly:true,
-        sameSite:"lax",
+        secure: true,
+        sameSite:"none",
         secure:false
     })
     //Send Response

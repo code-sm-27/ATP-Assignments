@@ -24,7 +24,7 @@ function UserDashboard() {
 
     try{
       setLoading(true)
-      let res = await axios.get("http://localhost:4000/user-api/articles",{withCredentials:true})
+      let res = await axios.get("https://atp-assignments.onrender.com/user-api/articles",{withCredentials:true})
       setArticles(res.data.payload)
     }
     catch(err)

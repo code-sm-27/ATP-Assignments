@@ -13,7 +13,7 @@ export const useAuth = create((set)=>({
             // Set Loading State
             set({loading:true,err:null})
             // Make API Req
-            let res = await axios.post("http://localhost:4000/common-api/login",userObj,{withCredentials:true})
+            let res = await axios.post("https://atp-assignments.onrender.com/common-api/login",userObj,{withCredentials:true})
                     
             set({loading:false,error:null,isAuthenticated:true,currentUser:res.data.payload})
             
@@ -38,7 +38,7 @@ export const useAuth = create((set)=>({
     checkAuth: async () => {
         try{
             set({loading:true,err:null})
-            let res = await axios.get("http://localhost:4000/common-api/check-auth",{withCredentials: true})
+            let res = await axios.get("https://atp-assignments.onrender.com/common-api/check-auth",{withCredentials: true})
             set({loading:false,error:null,isAuthenticated:true,currentUser:res.data.payload})
         }
         catch(err)
@@ -60,7 +60,7 @@ export const useAuth = create((set)=>({
             // Set Loading State
             set({loading:true,err:null})
             // Make API Req
-            let res = await axios.get("http://localhost:4000/common-api/logout",{withCredentials:true})
+            let res = await axios.get("https://atp-assignments.onrender.com/common-api/logout",{withCredentials:true})
                 
             // Update State
             set({loading:false,error:null,isAuthenticated:false,currentUser:null})
