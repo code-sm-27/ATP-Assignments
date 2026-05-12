@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import {useNavigate} from 'react-router'
-import { VITE_API_URL } from env
+
 function Register() {
   const {register,handleSubmit,formState:{errors}} = useForm()
   let [preview, setPreview] = useState(null)
