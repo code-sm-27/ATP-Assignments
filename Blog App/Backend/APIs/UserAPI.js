@@ -6,7 +6,10 @@ import { uploadToCloudinary } from '../config/cloudinaryUpload.js'
 import cloudinary from '../config/cloudinary.js'
 import upload from '../config/multer.js'
 export const userRoute = exp.Router()
-
+userRoute.use((req, res, next) => {
+    console.log(`🚨 USER API HIT: Method=${req.method}, Path=${req.url}`);
+    next();
+});
 //Register User
 userRoute.post(
         "/users",
@@ -53,7 +56,7 @@ userRoute.get('/articles',verifyToken("USER") ,async (req,res) => {
     res.status(200).json({message:"Articles:- ", payload: articles})
 })
 //Add comment to an article
-userRoute.post('/articles',verifyToken("USER") ,async (req,res) => {
+userRoute.put('/article',verifyToken("USER") ,async (req,res) => {
     let {articleId, comment} = req.body
     // Check User if the userId mentioned in the comment body is same as logged in user
     // if (user !== req.user.userId)

@@ -49,7 +49,7 @@ DELETE http://localhost:4000/author-api/article/69ae8bc637d4c2dc7228f7c6
 ### Reading Articles by User
 GET http://localhost:4000/user-api/articles
 ### Post Comments by User
-POST http://localhost:4000/user-api/articles
+PUT http://localhost:4000/user-api/article
 Content-Type: application/json
 
 {
