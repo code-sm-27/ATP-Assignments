@@ -11,7 +11,7 @@ config() //process.env
 // Create Express Application
 const app = exp()
 // Use CORS middleware
-app.use(cors({origin:['http://localhost:5173',process.env.VITE_URL],credentials:true}))
+app.use(cors({origin:['http://localhost:5173',process.env.CLIENT_URL],credentials:true}))
 //add body parser middleware
 app.use(exp.json())
 //add cookie parser middleware
