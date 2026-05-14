@@ -32,7 +32,25 @@ function Article() {
   const [article, setArticle] = useState(location.state || null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  
+  useEffect(() => {
+    if (article) return;
+
+  const getArticle = async () => {
+    setLoading(true);
+
+    try {
+      const res = await api.get(`/user-api/article/${id}`, { withCredentials: true });
+
+      setArticle(res.data.payload);
+    } catch (err) {
+      setError(err.response?.data?.error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  getArticle();
+}, [id]);
   const toggleArticleStatus = async () => {
   const newStatus = !article.isArticleActive;
   const confirmMsg = newStatus ? "Restore this article?" : "Delete this article?";

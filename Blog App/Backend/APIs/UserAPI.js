@@ -55,6 +55,13 @@ userRoute.get('/articles',verifyToken("USER") ,async (req,res) => {
     let articles = await ArticleModel.find({isArticleActive: true})
     res.status(200).json({message:"Articles:- ", payload: articles})
 })
+// Read an Article
+userRoute.get('/article/:id',verifyToken("USER"), async (req,res) => {
+    let article = await ArticleModel.findById(req.params.id)
+    res.status(201).json({message:"Article:- ",payload: article})
+    
+})
+
 //Add comment to an article
 userRoute.put('/article',verifyToken("USER") ,async (req,res) => {
     let {articleId, comment} = req.body
