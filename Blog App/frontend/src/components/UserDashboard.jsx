@@ -38,7 +38,7 @@ function UserDashboard() {
   getArticles()
   },[])
   const getArticle = (articleObj)=>{
-    navigate('/article',{state:articleObj})
+    navigate(`/article/${articleObj._id}`,{state:articleObj})
   }
   return (
       <div>
