@@ -49,10 +49,9 @@ const addComment = async (commentObj) => {
     commentObj.articleId = article._id;
     console.log(commentObj);
     let res = await api.put("/user-api/article", commentObj);
-    if (res.status === 200) {
+    if (res.status === 201) {
       toast.success(res.data.message);
       setArticle(res.data.payload);
-      console.log(res)
     }
   };
   return (

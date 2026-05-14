@@ -1,11 +1,35 @@
-import React from 'react'
+import {React, useState} from 'react'
 import { useForm } from 'react-hook-form'
 import { formCard, formGroup, inputClass, labelClass, pageBackground, primaryBtn, submitBtn } from '../styles/common'
+import { api } from '../api/axiosConfig'
+import { useAuth } from '../store/authStore'
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router";
 
 function AddArticle() {
-    const {register,handleSubmit,formState:{errors}} = useForm()
-    const submit = (obj) =>{
-        console.log(obj)
+    const navigate = useNavigate()
+    const {register,handleSubmit,formState:{errors},reset} = useForm()
+    const [loading,setLoading] = useState()
+    const currentUser=useAuth(state=>state.currentUser)
+
+    const submit = async (articleObj) =>{
+    setLoading(true);
+    articleObj.author=currentUser._id;
+    try {
+      await api.post('author-api/articles',articleObj);
+
+      toast.success("Article published successfully!");
+
+      reset();
+
+      navigate("/authordashboard/articles");
+
+    } catch (err) {
+      console.log(err)
+      toast.error(err.response?.data?.error || "Failed to publish article");
+    } finally {
+      setLoading(false);
+    }
     }
   return (
     <div className={pageBackground}>
