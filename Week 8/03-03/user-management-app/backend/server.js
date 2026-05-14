@@ -15,7 +15,6 @@ const app = exp()
 // Add CORS
 
 app.use(exp.json())
-app.
 app.use(cors({
   origin:['http://localhost:5173']
 }))
