@@ -16,7 +16,7 @@ const app = exp()
 
 app.use(exp.json())
 app.use(cors({
-  origin:['http://localhost:5173']
+  origin:['http://localhost:5173','https://user-management-app-frontend-rho.vercel.app']
 }))
 app.set("trust proxy", 1)
 app.use('/user-api',userApp)
