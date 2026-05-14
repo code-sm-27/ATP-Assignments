@@ -51,6 +51,7 @@ function Article() {
 
   getArticle();
 }, [id]);
+  
   const toggleArticleStatus = async () => {
   const newStatus = !article.isArticleActive;
   const confirmMsg = newStatus ? "Restore this article?" : "Delete this article?";
@@ -72,6 +73,9 @@ const addComment = async (commentObj) => {
       setArticle(res.data.payload);
     }
   };
+   if (loading) return <p className={loadingClass}>Loading article...</p>;
+  if (error) return <p className={errorClass}>{error}</p>;
+  if (!article) return null;
   return (
     <div className={articlePageWrapper} >
       <h1 style={{ color: "red", fontSize: "3rem", marginTop: "150px", position: "relative", zIndex: 50 }}>
