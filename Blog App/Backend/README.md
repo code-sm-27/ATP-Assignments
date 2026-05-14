@@ -23,4 +23,4 @@
 
 10. Registration and Login in common for USER & AUTHOR. Create a separate service to reuse
 
-11. The 
+11. The The Client wont send role. It just redirects to a specific API based on role selection. The hardcoded role assigned by API routes.
