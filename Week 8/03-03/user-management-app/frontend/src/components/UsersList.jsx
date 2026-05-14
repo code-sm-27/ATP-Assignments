@@ -18,7 +18,7 @@ function UsersList() {
         async function getUsers() {
             try{
                 
-            let res = api.get("/user-api.users")
+            let res = api.get("/user-api/users")
         
         if(res.status === 200)
             {
