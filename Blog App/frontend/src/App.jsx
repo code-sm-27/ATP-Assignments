@@ -53,7 +53,7 @@ function App() {
       element: <AdminDashboard/>
     },
     {
-      path:'/article',
+      path:'/article/:id',
       element:<Article/>
     },
     {
