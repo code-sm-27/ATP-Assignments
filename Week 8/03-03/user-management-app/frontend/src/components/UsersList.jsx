@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
-
+import { api } from '../api/axiosConfig'
 function UsersList() {
     let [users,setUsers] = useState([])
     let [loading,setLoading] = useState(false)
@@ -17,11 +17,8 @@ function UsersList() {
         setLoading(true)
         async function getUsers() {
             try{
-            let res = await fetch("http://localhost:4000/user-api/users",
-                {
-                    method:"GET"
-                }
-            )
+                
+            let res = api.get("/user-api.users")
         
         if(res.status === 200)
             {

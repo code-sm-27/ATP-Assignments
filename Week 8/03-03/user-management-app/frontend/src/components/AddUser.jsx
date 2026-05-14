@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import {useForm} from 'react-hook-form'
+import { api } from '../api/axiosConfig'
 import { useNavigate } from 'react-router'
 
 function AddUser() {
@@ -13,14 +14,8 @@ function AddUser() {
     
     setLoading(true)
     try{
-      let res = await fetch("http://localhost:4000/user-api/users",{
-      method:"POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(obj),
       
-    })
+    let res = api.post("/user-api/users", JSON.stringify(obj))
     if(res.status===201)
     {
       navigate('/userslist')

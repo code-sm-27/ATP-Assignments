@@ -15,11 +15,11 @@ const app = exp()
 // Add CORS
 
 app.use(exp.json())
-
+app.
 app.use(cors({
   origin:['http://localhost:5173']
 }))
-
+app.set("trust proxy", 1)
 app.use('/user-api',userApp)
 
 const connectDB = async()=>{
