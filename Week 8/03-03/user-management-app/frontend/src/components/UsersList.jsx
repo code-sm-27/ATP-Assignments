@@ -22,8 +22,7 @@ function UsersList() {
         
         if(res.status === 200)
             {
-                let data = await res.json()
-                setUsers(data.payload)   
+                setUsers(data.res.payload)   
             }
         else{
             throw new Error("Failed to Fetch")
