@@ -78,9 +78,6 @@ const addComment = async (commentObj) => {
   if (!article) return null;
   return (
     <div className={articlePageWrapper} >
-      <h1 style={{ color: "red", fontSize: "3rem", marginTop: "150px", position: "relative", zIndex: 50 }}>
-         TESTING: {article.title}
-       </h1>
        {/* Header */}
        <div className={articleHeader}>
          <span className={articleCategory}>{article.category}</span>
