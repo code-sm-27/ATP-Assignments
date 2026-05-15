@@ -22,7 +22,7 @@ function UsersList() {
         
         if(res.status === 200)
             {
-                setUsers(data.res.payload)   
+                setUsers(res.data.payload)   
             }
         else{
             throw new Error("Failed to Fetch")
